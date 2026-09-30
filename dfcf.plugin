@@ -1,0 +1,11 @@
+#!name = 东方财富去广告
+#!desc = 基于 haixinn/loon 的有效规则：去除开屏广告及活动背景图，需清除缓存后生效。
+
+# 规则来源：https://github.com/haixinn/loon/blob/main/dfcf.plugin
+
+[Rewrite]
+^https:\/\/emdcadvertise(?:pj)?\.eastmoney\.com\/infoService\/v2 response-body-json-replace data.adpositionidlist []
+^https:\/\/swdlcdn\.eastmoney\.com\/app\/adimg\/ url reject-dict
+
+[MITM]
+hostname = emdcadvertise.eastmoney.com, emdcadvertisepj.eastmoney.com, swdlcdn.eastmoney.com

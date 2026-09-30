@@ -1,0 +1,20 @@
+#!name = 同花顺去广告
+#!desc = 基于 haixinn/loon 的有效规则。JS 托管于 imnq/loon-plugins。
+
+# 规则来源：https://github.com/haixinn/loon/blob/main/ths.plugin
+# 保留原版 iphone.ac.qq.com 规则；该域名并非同花顺域名。
+
+[Rule]
+DOMAIN,adm.10jqka.com.cn,REJECT
+DOMAIN,stat.10jqka.com.cn,REJECT
+
+[Rewrite]
+^https?:\/\/adm\.10jqka\.com\.cn\/interface\/ad\/recommend - reject-200
+^https?:\/\/iphone\.ac\.qq\.com\/.*\/Support\/(getSystemConf|bootScreen) - reject
+^https?:\/\/stat\.10jqka\.com\.cn\/q\?ld=mobile&id=ad reject-dict
+
+[Script]
+http-response ^https:\/\/recommend\.10jqka\.com\.cn\/app\/discover\/api\/v1\/recommend script-path=https://raw.githubusercontent.com/imnq/loon-plugins/main/scripts/tonghuashun.js, requires-body=true, timeout=60, tag=THSblockAD
+
+[MITM]
+hostname = adm.10jqka.com.cn, iphone.ac.qq.com, recommend.10jqka.com.cn, stat.10jqka.com.cn
